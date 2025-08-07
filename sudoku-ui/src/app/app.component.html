@@ -1,0 +1,27 @@
+<main>
+  <h1>{{ title }}</h1>
+  <p>Enter the puzzle below and click Solve.</p>
+
+  <table class="sudoku-board">
+    <tbody>
+      <tr *ngFor="let row of board; let i = index; trackBy: trackByRow">
+        <td *ngFor="let cell of row; let j = index; trackBy: trackByCol">
+          <input 
+            type="text" 
+            maxlength="1"
+            pattern="[1-9]"
+            [(ngModel)]="board[i][j]"
+            [readonly]="originalBoard.length > 0"
+            [ngClass]="{'solved-cell': originalBoard.length > 0 && originalBoard[i][j] === null && board[i][j] !== null}">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="actions">
+    <button class="solve-btn" (click)="solvePuzzle()">Solve Puzzle</button>
+    <button class="clear-btn" (click)="clearBoard()">Clear Board</button>
+  </div>
+  
+  <p class="message" *ngIf="message">{{ message }}</p>
+</main>
